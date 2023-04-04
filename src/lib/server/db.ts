@@ -33,7 +33,7 @@ export const get_setting_all = (): readonly (StringSetting | NumberSetting | Boo
 
 export const set_setting = (name: string, value: string | number | boolean): boolean => {
   const ret = db_settings.update({ name, value });
-  console.log("set_setting, ret,", ret)
+  // console.log("set_setting, ret,", ret)
   return ret;
 }
 

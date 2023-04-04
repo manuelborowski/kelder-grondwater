@@ -1,6 +1,10 @@
 <script lang="ts">
+  // 0.1: added statemachine to control the pump, based on the waterlevel
+  
+  const version: string = "0.1"
   import CounterInput from "$lib/components/CounterInput.svelte";
   import { onMount } from "svelte";
+  
 
   let current_level: number = 0;
   let min_level: number = 0;
@@ -23,18 +27,18 @@
   }
 
   const update_settings = async () => {
-    console.log("min_level", min_level);
+    // console.log("min_level", min_level);
     const respone = await fetch('api/settings',  
       {method: 'POST', body: JSON.stringify({ min_level, max_level, sensor_offset })});
     const status = await respone.json();
-    console.log("status", status)
+    // console.log("status", status)
   }
 
   const switch_pump_state = async () => {
-    console.log("pump_state", pump_state);
+    // console.log("pump_state", pump_state);
     const respone = await fetch('api/sonoff',  {method: 'POST', body: JSON.stringify({action: "switch_pump_state", pump_state})});
     const status = await respone.json();
-    console.log("status", status)
+    // console.log("status", status)
     disable_pump_button = true;
     setTimeout(() => disable_pump_button = false, 1500);
   }
@@ -57,11 +61,12 @@
       </div>
     </div>
     <div class="p-8">
-      <div class="tracking-wide text-sm text-indigo-500 font-semibold border-2 border-indigo-600 rounded-md text-center py-1">Waterniveau: {current_level} cm</div>
+      <div class="tracking-wide text-sm text-indigo-500 font-semibold border-2 border-indigo-600 rounded-md text-center py-1">Waterniveau: {current_level.toFixed(2)} cm</div>
       <CounterInput bind:count={min_level} on:click={update_settings}>Min hoogte (cm)</CounterInput>
       <CounterInput bind:count={max_level} on:click={update_settings}>Max hoogte (cm)</CounterInput>
       <CounterInput bind:count={sensor_offset} on:click={update_settings}>Hoogte sensor (cm)</CounterInput>
     </div>
   </div>
+  <p class="text-center text-xs">@ 2023 MB V{version}</p>
 </div>
 

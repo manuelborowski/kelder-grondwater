@@ -12,7 +12,7 @@ export const POST = (async ({ request }) => {
   const data = await request.json();
   if (data.action === "switch_pump_state") {
     const current_state = data.pump_state;
-    console.log("current pump state", current_state);
+    // console.log("current pump state", current_state);
     set_relay(!current_state);
   }
 
