@@ -45,5 +45,6 @@ export const get_sensor = () => {
 export const get_relay = () =>  {return relay_state}
 
 export const set_relay = (state: boolean) => {
+  // console.log("set relay", state);
   client.publish(`cmnd/${SONOFF_ID}/POWER`, state ? "ON" : "OFF");
 }
