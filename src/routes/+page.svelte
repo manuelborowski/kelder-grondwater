@@ -1,8 +1,9 @@
 <script lang="ts">
   // 0.1: added statemachine to control the pump, based on the waterlevel
   // 0.2: added hook to handle api-key
-  
-  const version: string = "0.2"
+  // 0.3: updated adapter for node
+
+  const version: string = "0.3"
   import CounterInput from "$lib/components/CounterInput.svelte";
   import { onMount } from "svelte";
   
