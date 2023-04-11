@@ -4,8 +4,9 @@
   // 0.3: updated adapter for node
   // 0.4: fetch settings on regular intervals
   // 0.5: introduced moving average for sensor_level
+  // 0.6: fixed favicon
 
-  const version: string = "0.5"
+  const version: string = "0.6"
   import CounterInput from "$lib/components/CounterInput.svelte";
   import { onMount } from "svelte";
   
