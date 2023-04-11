@@ -3,8 +3,9 @@
   // 0.2: added hook to handle api-key
   // 0.3: updated adapter for node
   // 0.4: fetch settings on regular intervals
+  // 0.5: introduced moving average for sensor_level
 
-  const version: string = "0.4"
+  const version: string = "0.5"
   import CounterInput from "$lib/components/CounterInput.svelte";
   import { onMount } from "svelte";
   

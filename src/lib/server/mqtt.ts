@@ -1,10 +1,11 @@
 import * as mqtt from "async-mqtt"
-import { MQTT_SERVER_URL, SONOFF_ID } from '$env/static/private';
-import { json } from "stream/consumers";
+import { MQTT_SERVER_URL, SONOFF_ID, MA_PERIOD } from '$env/static/private';
 
-let sensor_value = 0;
-let relay_state = false;
+let sensor_value: number = 0;
+let relay_state: boolean = false;
 let client: mqtt.AsyncMqttClient;
+let ma_sensor_values: number[] = [];
+let average_sensor_value: number = 0;
 
 export const init = () => {
   // console.log(MQTT_SERVER_URL, SONOFF_ID)
@@ -32,14 +33,19 @@ export const init = () => {
     } else if (topic.toString().includes("stat")) {
       const json_data = JSON.parse(message.toString());
       sensor_value = json_data.StatusSNS.SR04?.Distance || sensor_value
-      // console.log(sensor_value);
-  }
+    }
+    if (ma_sensor_values.length === 0) 
+    if (ma_sensor_values.length >= MA_PERIOD) ma_sensor_values.shift();
+    ma_sensor_values.push(sensor_value);
+    average_sensor_value = ma_sensor_values.reduce((sum, i) => sum + i, 0) / ma_sensor_values.length;
+
+    // console.log("average", average_sensor_value, sensor_value);
 })
 }
 
 export const get_sensor = () => {
   client.publish(`cmnd/${SONOFF_ID}/STATUS`, "10");
-  return sensor_value
+  return average_sensor_value
 }
 
 export const get_relay = () =>  {return relay_state}
