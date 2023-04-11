@@ -2,8 +2,9 @@
   // 0.1: added statemachine to control the pump, based on the waterlevel
   // 0.2: added hook to handle api-key
   // 0.3: updated adapter for node
+  // 0.4: fetch settings on regular intervals
 
-  const version: string = "0.3"
+  const version: string = "0.4"
   import CounterInput from "$lib/components/CounterInput.svelte";
   import { onMount } from "svelte";
   
@@ -47,7 +48,7 @@
 
   onMount(async () => {
     setInterval(get_readings, 1000);
-    await get_settings();
+    setInterval(get_settings, 1000);
   })
 
 </script>
