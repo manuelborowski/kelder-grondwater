@@ -5,8 +5,9 @@
   // 0.4: fetch settings on regular intervals
   // 0.5: introduced moving average for sensor_level
   // 0.6: fixed favicon
+  // 0.7: bugfix sensor_value, average was miscalculated.  Moved average calculation from mqtt to controller.
 
-  const version: string = "0.6"
+  const version: string = "0.7"
   import CounterInput from "$lib/components/CounterInput.svelte";
   import { onMount } from "svelte";
   
